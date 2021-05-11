@@ -1,14 +1,14 @@
 org     100h
 section .text
 
-        ; Limpiar registros
+        ;Limpiar registros
         XOR AX, AX
         XOR SI, SI
 
         MOV byte BL, 8d ; Cantidad de dígitos que tiene el carnet
         MOV word CX, 8d ; Contador del LOOP, se resta -1 a CX en cada iteración
 
-        ;Se guardan los digitos del carnet en las casillas 200
+        ;Se guarda digito por digito del carnet en los segmentos 200h 
         MOV byte [200h], 0d
         MOV byte [201h], 0d
         MOV byte [202h], 0d
