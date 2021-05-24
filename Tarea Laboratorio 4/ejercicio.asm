@@ -53,7 +53,7 @@ Even:
         
 Odd:
         MOV DI, CX                      
-        MOV byte [320h + DI], BL        ; Guardamos el valor del número par en la direccion 300h
+        MOV byte [320h + DI], BL        ; Guardamos el valor del número impar en la direccion 320h
         INC DI
         MOV CX, DI                      ; Se almacena el valor de la última posición en el arreglo de Odd
         JMP Function
