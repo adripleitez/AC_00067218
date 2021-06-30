@@ -12,11 +12,6 @@
 	mov 	BP, frase
 	call  	LeerCadena
 
-    ; limpiar el contador
-    xor SI, SI 
-
-    call	compararCadenas
-
 	int 	20h
 
 	section	.data
@@ -47,16 +42,18 @@ while:
         inc     SI              
         jmp     while  
 exit:
-        mov byte [BP + SI], "$" ; para agregar el $ al final
-        ret   
+        mov     byte [BP + SI], "$" ; para agregar el $ al final
+        jmp     limpiar
+limpiar:
+        xor     SI, SI              ; limpiar el contador
 compararCadenas:
-        cmp SI, noCaracteres    ; contraseña debe ser de cinco caracteres por lo que se compara con este largo definido
-        je  esIgual             ; si se llega a la última posición significa que todos los caracteres de la cadena son iguales a la contraseña
-        mov AL, [clave + SI]    ; se recorre la cadena de la llave en la posición que lleve SI
-	    cmp [BP + SI], AL	    ; se compara con el caracter de la frase ingresada que este en la posición de SI guardada en la direccion BP 
-        jne noIgual             ; si un caracter es diferente entonces salta a la cadena de incorrecto
-        inc SI
-        jmp compararCadenas     ; while
+        cmp     SI, noCaracteres    ; contraseña debe ser de cinco caracteres por lo que se compara con este largo definido
+        je      esIgual             ; si se llega a la última posición significa que todos los caracteres de la cadena son iguales a la contraseña
+        mov     AL, [clave + SI]    ; se recorre la cadena de la llave en la posición que lleve SI
+	cmp     [BP + SI], AL	    ; se compara con el caracter de la frase ingresada que este en la posición de SI guardada en la direccion BP 
+        jne     noIgual             ; si un caracter es diferente entonces salta a la cadena de incorrecto
+        inc     SI
+        jmp     compararCadenas     ; while
 esIgual:
     	mov 	DX, msg2        ; Para escribir el mensaje de Bienvenido
     	jmp 	EscribirCadena
